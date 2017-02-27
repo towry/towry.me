@@ -104,8 +104,6 @@ description: "UISplitViewController without storyboard"
 1. 如果当前的split view controller 是 expanded 模式，就是说宽度足够两列展示，那么split view controller 会接受这个要显示的视图，将它作为副视图展示出来。这个时候视图层的样子是两个navigation controller作为两列的第一视图，分别控制显示两列的内容。因此我们可以看到两列各有一个navigation bar。
 2. 如果是 collapsed 模式。split view controller 会发送 `show(_:sender)` 消息到它的第一个视图控制器里，在本文的示例代码中（见文末），是一个`UINavigationController`。这个 navigation controller 收到这个消息后，会把这个要展示的视图给push到它的stack里面，于是这个视图就显示出来了。这个时候的视图层的样子是，第二个视图的navigation controller会作为子视图出现在第一个视图的navigation controller里面，这样第二个视图的内容就展示出来，只有一列。这样可能会有点奇怪，不过在内部实现上，第一个视图的navigation controller会做一些工作，保证正常显示第二个navigation controller里面的内容，而不显示第二个navigation controller的navigation bar。不然的话就有两个navigation bar了。在这里推荐阅读《Programming iOS 10 Dive Deep into Views..》这部书，里面有很详细的讲解。
 
-<img src="http://o8g4x4uja.bkt.clouddn.com//hahawubi.jpg" alt="" />
-
 ## 其他
 
 我发现，在设置`navigationController.isTranslucent = false`时，在显示的时候不生效，后来发现原因是我把这行代码写在了`navigationController`被添加为子视图的代码上面了。
