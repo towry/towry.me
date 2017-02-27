@@ -1,0 +1,3 @@
+[submodule "themes/reveal.hugo-theme"]
+	path = themes/reveal.hugo-theme
+	url = git@github.com:towry/reveal.hugo-theme.git

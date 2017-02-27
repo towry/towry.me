@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)http://blog.towry.me/wp-content/uploads/2015/03/jsbin.riboco.1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="robots" content="noindex">
+
+
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+#a {
+	width: 200px;
+	height: 200px;
+	background: red;
+	overflow: hidden;
+}
+
+#b {
+	width: 100px;
+	height: 100px;
+	background: blue;
+	margin: 50px;
+}
+
+#clear {
+	margin-top: 40px;
+}
+</style>
+</head>
+<body>
+	<div id="a"><div id="b"></div></div>
+	
+	<input type="button" id="clear" value="clear">
+	<div id="log"></div>
+<script id="jsbin-javascript">
+var a = document.getElementById('a');
+var b = document.getElementById('b');
+var d = document.getElementById('log');
+var e = document.getElementById('clear');
+
+var c = 0;
+
+if (document.attachEvent) {
+	a.attachEvent('onmouseenter', function () {
+		c++;
+		log(c);
+	})
+	e.attachEvent('onclick', function () {
+		while (d.firstChild) {
+			d.removeChild(d.firstChild);
+		}
+		c = 0;
+	})
+} else if (document.addEventListener) {
+	a.addEventListener('mouseover', function () {
+		c++;
+		log(c);
+	})
+	e.addEventListener('click', function () {
+		d.innerHTML = '';
+		c = 0;
+	})
+}
+
+function log(m) {
+	var p = document.createElement('P');
+	p.innerText = m;
+	d.appendChild(p);
+}
+</script>
+
+</body></html>

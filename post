@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'erb'
+
+Root = File.expand_path(File.dirname(__FILE__))
+slug = ARGV.join('-')
+title = ARGV.join(' ')
+year = Time.now.strftime '%Y'
+now = Time.now.strftime '%m-%d'
+date = Time.now.strftime '%Y-%m-%d %H:%M:%S'
+
+if slug.strip.empty?
+  puts "[ERROR] => You need provide a post title"
+  exit
+end
+
+# Check if the file is exist
+if File.exists?(File.join('./content/post', "#{year}/#{now}-#{slug}.md"))
+  puts "[FAIL] => File already exists"
+  exit
+end
+
+# Check if template file exists
+if not File.exists?('./bundle/post_template.erb')
+  puts "[FAIL] => Template file not exists"
+end
+
+# Render the template
+contents = File.read('./bundle/post_template.erb')
+renderer = ERB.new(contents)
+results = renderer.result
+
+unless File.directory?(File.join('./content/post', "#{year}"))
+  FileUtils.mkdir_p(File.join('./content/post', "#{year}"))
+end
+
+# Create post file
+File.open(File.join(Root, "content/post/#{year}/#{now}-#{slug}.md"), 'a') do |file|
+  file.write(results)
+end
+
+puts "[OK] => Created: " + "#{year}/#{now}-#{slug}.md"
