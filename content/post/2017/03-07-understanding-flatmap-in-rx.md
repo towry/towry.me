@@ -4,7 +4,7 @@ date: "2017-03-07 09:34:18"
 description: "理解flatMap, 理解flatMapLatest, rxjs"
 ---
 
-<em>注：此文针对的读者为了解rx的一些基本概念，如果不了解，可以这篇文章：[http://towry.me/post/2017/03-03-understanding-reactive-programming/#进入主题-反应式编程-reactive-programming](http://towry.me/post/2017/03-03-understanding-reactive-programming/#进入主题-反应式编程-reactive-programming)。
+<em>注：此文针对的读者是了解了rx的一些基本概念，如果不了解，可以阅读这篇文章：[http://towry.me/post/2017/03-03-understanding-reactive-programming/#进入主题-反应式编程-reactive-programming](http://towry.me/post/2017/03-03-understanding-reactive-programming/#进入主题-反应式编程-reactive-programming)。
 同时，此文中的stream和Observable sequence是同一概念。</em>
 
 看官网或者其他文档对flatMap的解释是，会把原来的stream投射出的元素转换为另一个stream，然后最后
