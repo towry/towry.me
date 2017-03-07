@@ -93,13 +93,13 @@ stream2-2,stream2-3投射出来的元素组成。
 
 > flatMapFirst instead propagates the first Observable exclusively until it completes before it begins subscribes to the next Observable.
 
-从这里也可以很好的理解`flatMapLatest`了。假如stream1中的元素都是网络请求，10代表网络请求发出
+从这里也可以很好的理解`flatMapFirst`了。假如stream1中的元素都是网络请求，10代表网络请求发出
 去了，而由10转换出来的stream2-1代表着整个和这个网络请求相关操作，也就是可以认为stream2-1代表着收到网络
 请求结果后，对数据处理，更新界面等等。然后这时，20开始投射并进行转换为stream2-2，这可能代表着
 用户再次发送了一个网络请求，这个时候，从上面的图中可以看出，20转换出来的stream2-2开始投射的时候，
 stream2-1已经投射到了12了，这个12可以代表着stream2-1发出的网络请求已经返回结果，要对结果进行
 处理。而stream2-2这时候的开始，明显是一个重复的网络请求操作，是应该被取消的，毕竟第一个网络请求
-还没被处理完成呢。这个时候使用flatMapFirst，可以取消后续(stream2-2)的操作，除非第一个操作(stream2-1)已经完成了。
+还没被处理完成呢。这个时候使用`flatMapFirst`，会取消后续(stream2-2)的操作，因为第一个操作(stream2-1)还没有完成。
 然后理解 `flatMapLatest` 也就不难了，就是要取消stream2-1(未完成)，使用stream2-2（最新的）。这时如果用户
 不小心又触发一个网络请求(stream2-3)，那么`flatMapLatest`会取消`steram2-2`，使用`stream2-3`。
 当然，在这样的场景下，我们是应该使用`flatMapFirst`的！
