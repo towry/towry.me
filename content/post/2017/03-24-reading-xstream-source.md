@@ -28,8 +28,8 @@ xstream里有几个主要的接口类型，其中有`Producer`, `Listener`, `Int
 
 * [Producer](https://github.com/sourcemd/xstream/blob/0a636f1a506afb99eef441e88f01f7bc0e860442/src/index.ts#L66) 类型代表着序列产生器，是发射元素的地方。其有一个`start`和`stop`方法，表明如何发射元素和如何停止发射元素。我们可以说 `{start: function () {}, stop: function () {}}` 这个对象是一个`Producer`类型的对象，因为它实现了`Producer`这个接口。
 * [Listener](https://github.com/sourcemd/xstream/blob/master/src/index.ts#L71) 类型代表着监听者，有3个方法, `next`, `error`, `complete`，所以当stream有发射元素的时候，会通知监听者，通知方式是调用监听者的`next`方法，将元素值作为参数传进去。如果stream有error，则会调用监听者的`error`方法。
-* [InternalProducer](https://github.com/sourcemd/xstream/blob/master/src/index.ts#L45)，这是xstream内部实现上依赖的"Producer"接口类型。这个接口有两个方法，`_start`，`_stop`。这两个方法除了调用`Producer`接口的`start`和`stop`方法外，还会做些[额外的工作](https://github.com/sourcemd/xstream/blob/master/src/index.ts#L86)，`Stream`在工作的时候，会调用`InternalProducer`的`_start`方法来开始发射元素，进而调用了`Producer`的`start`方法。
-* [InternalListener](https://github.com/sourcemd/xstream/blob/master/src/index.ts#L33)，这个接口的作用同 `InternalProducer`接口的作用类似。这个接口是对`Listener`的封装，做了一些额外的工作。其有`_n`, `_e`, `_c`三个方法，会分别调用`Listener`的`next`, `error`, `complete`。
+* [InternalProducer](https://github.com/sourcemd/xstream/blob/master/src/index.ts#L45)，这是xstream内部实现上依赖的接口类型。如果说`Producer`是给用户用的话，这个接口是给xstream使用的。这个接口有两个方法，`_start`，`_stop`。这两个方法除了调用用户传递的`Producer`对象的`start`和`stop`方法外，还会做些[额外的工作](https://github.com/sourcemd/xstream/blob/master/src/index.ts#L86)，`Stream`在工作的时候，会调用`InternalProducer`的`_start`方法来开始发射元素，进而调用了`Producer`对象的`start`方法。
+* [InternalListener](https://github.com/sourcemd/xstream/blob/master/src/index.ts#L33)，这个接口的作用同`InternalProducer`接口的作用类似。这个接口是对`Listener`的封装，做了一些额外的工作。其有`_n`, `_e`, `_c`三个方法，会分别调用`Listener`的`next`, `error`, `complete`。
 
 ## 工作原理
 
