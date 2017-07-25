@@ -6,7 +6,8 @@
         {
             "taskName": "preview",
             "command": "hugo server -w",
-            "type": "shell"
+            "type": "shell",
+            "problemMatcher": []
         },
         {
             "taskName": "publish",
